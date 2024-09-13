@@ -1,0 +1,32 @@
+body {
+    font-family: Helvetica;
+    color: #444;
+    background-color: #ddd;
+    margin: 0 auto;
+    line-height: 1.5;
+    padding: 2% 0;
+    font-weight: bold;
+}
+
+main {
+    background-color: white;
+    width: 30%;
+    max-width: 300px;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 10px #444;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input,
+button {
+    width: 100%;
+    padding: 0.4rem;
+    margin: 0.5rem 0;
+    outline: none;
+    border: 0.5px solid gray;
+    box-sizing: border-box;
+}

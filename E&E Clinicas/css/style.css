@@ -1,0 +1,96 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #2C3E50; /* Azul Escuro */
+    background-color: #BDC3C7; /* Cinza Prata */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    text-align: center;
+    background-color: #2C3E50; /* Azul Escuro */
+    padding: 1.5rem 0;
+    color: #FFFFFF; /* Branco */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+nav {
+    background-color: #2C3E50; /* Azul Escuro */
+    padding: 1rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFFFFF; /* Branco */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #95A5A6; /* Verde Suave */
+}
+
+main {
+    background-color: #FFFFFF; /* Branco */
+    width: 70%;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    color: #2C3E50; /* Azul Escuro */
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+p {
+    text-align: justify;
+    color: #2C3E50; /* Azul Escuro */
+    font-size: 1.1rem;
+}
+
+ul {
+    color: #2C3E50; /* Azul Escuro */
+}
+
+footer {
+    background-color: #2C3E50; /* Azul Escuro */
+    color: #FFFFFF; /* Branco */
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+address, footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+footer a {
+    color: #95A5A6; /* Verde Suave */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
