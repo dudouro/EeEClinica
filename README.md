@@ -1,3 +1,6 @@
+Para o site da clínica utilizando um banco de dados NoSQL, a interação seria baseada em um formato de documentos estruturados de maneira a otimizar as operações de leitura e escrita de agendamentos. Um banco de dados NoSQL como MongoDB, que utiliza documentos JSON, seria um exemplo adequado para esse tipo de implementação.
+
+Cada documento representaria um paciente ou um agendamento, contendo todos os detalhes necessários. A estrutura seria pensada para evitar relacionamentos complexos (como em SQL) e focar em manter as informações agregadas dentro de um único documento.
 Casos de Uso para o Site da Clínica
 
 Agendar Horário na Clínica
