@@ -1,7 +1,7 @@
 body {
     font-family: Helvetica, Arial, sans-serif;
-    color: #2C3E50; /* Azul Escuro */
-    background-color: #BDC3C7; /* Cinza Prata */
+    color: #2C3E50; 
+    background-color: #BDC3C7; 
     margin: 0;
     padding: 0;
     line-height: 1.6;
@@ -9,9 +9,9 @@ body {
 
 header {
     text-align: center;
-    background-color: #2C3E50; /* Azul Escuro */
+    background-color: #2C3E50; 
     padding: 1.5rem 0;
-    color: #FFFFFF; /* Branco */
+    color: #FFFFFF; 
 }
 
 header h1 {
@@ -20,7 +20,7 @@ header h1 {
 }
 
 nav {
-    background-color: #2C3E50; /* Azul Escuro */
+    background-color: #2C3E50; 
     padding: 1rem;
     text-align: center;
 }
@@ -39,17 +39,13 @@ nav li {
 
 nav a {
     text-decoration: none;
-    color: #FFFFFF; /* Branco */
+    color: #FFFFFF; 
     font-weight: bold;
     transition: color 0.3s ease-in-out;
 }
 
-nav a:hover {
-    color: #95A5A6; /* Verde Suave */
-}
-
 main {
-    background-color: #FFFFFF; /* Branco */
+    background-color: #FFFFFF;
     width: 70%;
     margin: 2rem auto;
     padding: 2rem;
@@ -58,24 +54,24 @@ main {
 }
 
 h2 {
-    color: #2C3E50; /* Azul Escuro */
+    color: #2C3E50; 
     font-size: 1.8rem;
     margin-top: 0;
 }
 
 p {
     text-align: justify;
-    color: #2C3E50; /* Azul Escuro */
+    color: #2C3E50; 
     font-size: 1.1rem;
 }
 
 ul {
-    color: #2C3E50; /* Azul Escuro */
+    color: #2C3E50;
 }
 
 footer {
-    background-color: #2C3E50; /* Azul Escuro */
-    color: #FFFFFF; /* Branco */
+    background-color: #2C3E50; 
+    color: #FFFFFF; 
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
@@ -87,10 +83,16 @@ address, footer p {
 }
 
 footer a {
-    color: #95A5A6; /* Verde Suave */
+    color: #95A5A6;
     text-decoration: none;
 }
 
 footer a:hover {
     text-decoration: underline;
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
