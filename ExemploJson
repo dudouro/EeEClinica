@@ -1,0 +1,25 @@
+paciente = {
+  "cpf": "12345678900",
+  "nome": "João Silva",
+  "dataNasc": "1985-03-20",
+  "email": "joaosilva@exemplo.com",
+  "telefone": "+5511999999999"
+}
+
+agendamento = {
+  "cpfPaciente": "12345678900",
+  "data": "2024-09-20T10:30:00Z",
+  "sintomas": "Dor de cabeça e febre",
+  "crmMedico": "CRM123456",
+  "especialidade": "Clinico Geral"
+}
+
+medico = {
+  "crm": "CRM123456",
+  "nome": "Dr. Pedro Costa",
+  "dataNasc": "1975-07-15",
+  "email": "pedrocosta@exemplo.com",
+  "cpf": "09876543210",
+  "telefone": "+5511987654321",
+  "especialidade": "Clinico Geral"
+}
