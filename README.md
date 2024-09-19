@@ -14,7 +14,6 @@ Escolhe data e horário disponível.
 Insere informações pessoais.
 Confirma o agendamento.
 O sistema registra no banco de dados NoSQL.
-Paciente recebe confirmação por e-mail ou SMS.
 
 Checar Agendamentos do Dia
 
@@ -34,7 +33,6 @@ Paciente acessa seus agendamentos.
 Escolhe qual agendamento deseja remarcar.
 Seleciona nova data e horário.
 Sistema verifica disponibilidade e atualiza no banco NoSQL.
-Paciente recebe confirmação.
 
 Cancelar Agendamento
 
@@ -45,4 +43,3 @@ Paciente acessa seus agendamentos.
 Seleciona o agendamento para cancelar.
 Confirma cancelamento.
 Sistema remove o agendamento do banco de dados.
-Paciente recebe notificação de cancelamento.
