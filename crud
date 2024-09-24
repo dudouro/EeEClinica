@@ -1,0 +1,83 @@
+// ------------------------------------
+// 1. Create (Inserir dados)
+// ------------------------------------
+
+// Inserir um paciente
+db.pacientes.insertOne({
+  "cpf": "12345678900",
+  "nome": "João Silva",
+  "dataNasc": "1985-03-20",
+  "email": "joaosilva@exemplo.com",
+  "telefone": "+5511999999999"
+});
+
+// Inserir um agendamento
+db.agendamentos.insertOne({
+  "cpfPaciente": "12345678900",
+  "data": new Date("2024-09-20T10:30:00Z"),
+  "sintomas": "Dor de cabeça e febre",
+  "crmMedico": "CRM123456",
+  "especialidade": "Clinico Geral"
+});
+
+// Inserir um médico
+db.medicos.insertOne({
+  "crm": "CRM123456",
+  "nome": "Dr. Pedro Costa",
+  "dataNasc": "1975-07-15",
+  "email": "pedrocosta@exemplo.com",
+  "cpf": "09876543210",
+  "telefone": "+5511987654321",
+  "especialidade": "Clinico Geral"
+});
+
+// ------------------------------------
+// 2. Retrieve (Recuperar dados)
+// ------------------------------------
+
+// Encontrar um paciente pelo CPF
+db.pacientes.findOne({ "cpf": "12345678900" });
+
+// Recuperar todos os agendamentos de um paciente pelo CPF
+db.agendamentos.find({ "cpfPaciente": "12345678900" }).toArray();
+
+// Encontrar um médico pelo CRM
+db.medicos.findOne({ "crm": "CRM123456" });
+
+// ------------------------------------
+// 3. Update (Atualizar dados)
+// ------------------------------------
+
+// Atualizar o telefone de um paciente
+db.pacientes.updateOne(
+  { "cpf": "12345678900" },
+  { $set: { "telefone": "+5511988888888" } }
+);
+
+// Atualizar a data de um agendamento
+db.agendamentos.updateOne(
+  { "cpfPaciente": "12345678900", "data": new Date("2024-09-20T10:30:00Z") },
+  { $set: { "data": new Date("2024-09-21T11:00:00Z") } }
+);
+
+// Atualizar a especialidade de um médico
+db.medicos.updateOne(
+  { "crm": "CRM123456" },
+  { $set: { "especialidade": "Cardiologista" } }
+);
+
+// ------------------------------------
+// 4. Delete (Remover dados)
+// ------------------------------------
+
+// Remover um paciente pelo CPF
+db.pacientes.deleteOne({ "cpf": "12345678900" });
+
+// Remover um agendamento
+db.agendamentos.deleteOne({
+  "cpfPaciente": "12345678900",
+  "data": new Date("2024-09-20T10:30:00Z")
+});
+
+// Remover um médico pelo CRM
+db.medicos.deleteOne({ "crm": "CRM123456" });
