@@ -8,11 +8,15 @@ paciente = {
 
 agendamento = {
   "cpfPaciente": "12345678900",
+  "nome": "João Silva",
+  "sexo": "M",
   "data": "2024-09-20T10:30:00Z",
-  "sintomas": "Dor de cabeça e febre",
+  "email": "joaosilva@exemplo.com",
+  "telefone": "+5511999999999",
   "crmMedico": "CRM123456",
   "especialidade": "Clinico Geral"
 }
+
 
 medico = {
   "crm": "CRM123456",
