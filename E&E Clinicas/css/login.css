@@ -10,8 +10,6 @@ body {
 
 main {
     background-color: white;
-    width: 30%;
-    max-width: 300px;
     border-radius: 10px;
     padding: 2rem;
     box-shadow: 0 0 10px #444;
@@ -29,4 +27,8 @@ button {
     outline: none;
     border: 0.5px solid gray;
     box-sizing: border-box;
+}
+
+.arruma {
+    margin: 1rem;
 }

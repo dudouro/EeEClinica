@@ -46,7 +46,6 @@ nav a {
 
 main {
     background-color: #FFFFFF;
-    width: 70%;
     margin: 2rem auto;
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -79,7 +78,7 @@ footer {
 
 address, footer p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 footer a {
@@ -95,11 +94,16 @@ main img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    margin-top: 1rem;
 }
 iframe {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+}
+
+.arruma {
+    margin: 1rem;
 }
 
 

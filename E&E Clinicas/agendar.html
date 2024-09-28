@@ -7,24 +7,48 @@
     <meta name="description"
         content="E&E Clínicas, fundada pelos médicos Eduardo Oliveira e Matheus Eduardo, oferece atendimento especializado e humanizado em Uberlândia.">
     <link rel="stylesheet" href="css/style.css">
-    meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <header>
-        <img src="images/logonome.png" alt="Logo da E&E Clínicas" class="logo" width="200" height="100%">
-    </header>
-    <nav>
-        <ul>
-            </li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="galeria.html">Galeria</a></li>
-            <li><a href="contato.html">Contato</a></li>
-            <li><a href="login.html">Login</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#"> <img src="images/logonome.png" alt="Logo da E&E Clínicas" class="logo"
+                    width="100" height="100%">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="galeria.html">Galeria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agendar.html">Agendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <main>
         <div>
 
@@ -35,32 +59,56 @@
             <form action="/agendar" method="POST">
                 <div class="row">
                     <div class="col-sm-9">
-                        <label for="cpfPaciente" class="form-label">CPF:</label>
-                        <input type="text" id="cpfPaciente" class="form-control" name="cpfPaciente" maxlength="11"
-                            placeholder="Digite seu CPF" required>
+                        <label for="cpfPaciente" class="form-label">Nome:</label>
+                        <input type="text" id="cpfPaciente" class="form-control" name="cpfPaciente"
+                            placeholder="Digite seu CPF">
                     </div>
-                    <div class="col-sm-3">
-                        <label for="data" class="form-label">Data e Hora:</label>
-                        <input type="datetime-local" id="data" class="form-control" name="data" required>
+                    <div class="col-md-3">
+                        <label for="sexo" class="form-label">Sexo:</label>
+                        <select id="sexo" class="form-select" name="sexo">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                            <option value="O">Outro</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <label for="cpfPaciente" class="form-label">CPF:</label>
+                            <input type="text" id="cpfPaciente" class="form-control" name="cpfPaciente"
+                                placeholder="Digite seu CPF">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="data" class="form-label">Data e Hora:</label>
+                            <input type="datetime-local" id="data" class="form-control" name="data">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" id="email" class="form-control" name="email"
+                                placeholder="Digite seu email">
+                        </div>
+                        <div class="col-sm-5">
+                            <label for="telefone" class="form-label">Telefone:</label>
+                            <input type="number" id="telefone" class="form-control" name="telefone"
+                                placeholder="Apenas numeros">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <label for="sintomas" class="form-label">Sintomas:</label>
-                        <textarea id="sintomas" class="form-control" name="sintomas" rows="5"
-                            placeholder="Descreva seus sintomas" required></textarea>
+                    <div class="col-md-6">
+                        <label for="nomeMed" class="form-label">Médico:</label>
+                        <select id="nomeMed" class="form-select" name="nomeMed">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="ME">Matheus Eduardo</option>
+                            <option value="EO">Eduardo Oliveira</option>
+                        </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <label for="crmMedico" class="form-label">CRM do Médico:</label>
-                        <input type="text" id="crmMedico" class="form-control" name="crmMedico"
-                            placeholder="CRM do médico responsável" required>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="especialidade" class="form-label">Especialidade:</label>
-                        <select id="especialidade" class="form-select" name="especialidade" required>
-                            <option value="" disabled selected>Selecione uma especialidade</option>
+                        <select id="especialidade" class="form-select" name="especialidade">
+                            <option value="" disabled selected>Selecione</option>
                             <option value="clinicoGeral">Clínico Geral</option>
                             <option value="cardiologia">Cardiologia</option>
                             <option value="dermatologia">Dermatologia</option>
@@ -76,57 +124,10 @@
                 </div>
             </form>
         </div>
-        <script>
-            document.getElementById("butao").addEventListener("click", function () {
-                // Captura os valores dos campos do formulário
-                const cpfPaciente = document.getElementById("cpfPaciente").value;
-                const data = document.getElementById("data").value;
-                const sintomas = document.getElementById("sintomas").value;
-                const crmMedico = document.getElementById("crmMedico").value;
-                const especialidade = document.getElementById("especialidade").value;
 
-                // Limpa mensagens anteriores
-                document.getElementById("mensagem").innerText = "";
-                document.getElementById("erro").innerText = "";
-
-                // Validação simples
-                if (!cpfPaciente || !data || !sintomas || !crmMedico || !especialidade) {
-                    document.getElementById("erro").innerText = "Por favor, preencha todos os campos!";
-                    return;
-                }
-
-                // Cria o objeto JSON com os dados do formulário
-                const agendamento = {
-                    cpfPaciente: cpfPaciente,
-                    data: data,
-                    sintomas: sintomas,
-                    crmMedico: crmMedico,
-                    especialidade: especialidade
-                };
-                // Envia os dados para a API FastAPI usando Fetch API
-                fetch("http://localhost:8000/agendar", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(agendamento), // Converte o objeto JS para JSON
-                })
-                    .then(response => response.json()) // Trata a resposta da API
-                    .then(data => {
-                        // Exibe uma mensagem de sucesso ou de erro
-                        if (data.success) {
-                            document.getElementById("mensagem").innerText = "Agendamento realizado com sucesso!";
-                        } else {
-                            document.getElementById("erro").innerText = "Erro ao realizar o agendamento. Tente novamente.";
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Erro:", error);
-                        document.getElementById("erro").innerText = "Erro ao conectar com o servidor.";
-                    });
-            });
-        </script>
-
+        <!--Reaproveitamos o site para a matéria de NoSQL-->>
+        <script src="java/agendarNOSQL.js"></script>
+        
     </main>
 
 
