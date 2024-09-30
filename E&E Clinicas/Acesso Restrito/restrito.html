@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Acesso Restrito</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="../index.html"> <img src="../images/logonome.png" alt="Logo da E&E Clínicas"
+          class="logo" width="100" height="100%">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../galeria.html">Galeria</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../contato.html">Contato</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../agendar.html">Agendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../login.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="container">
+    <main>
+      <form action="cadastra.php" method="get">
+        <h1>Acesso Restrito</h1>
+        <p>Realize as consultas</p>
+        <div class="row">
+          <div class="col-sm-6">
+            <a class="btn btn-primary" id="butao" href="cadastrofuncionario.html">Cadastro de
+              funcionários</a>
+          </div>
+          <div class="col-sm-6">
+            <a class="btn btn-primary" id="butao" href="cadastromedico.html">Cadastro de médicos</a>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <label for="funcionários" class="form-label">Funcionários cadastrados:</label>
+          <select id="funcionários" name="funcionários" required class="form-select">
+            <option value="">Selecione</option>
+            <option value="CG">João</option>
+            <option value="CA">Maria</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="médicos" class="form-label"> Médicos cadastrados:</label>
+          <select id="médicos" name="médicos" required class="form-select">
+            <option value="">Selecione</option>
+            <option value="BT">Beltrano</option>
+            <option value="FL">Fulano</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="agendamentos" class="form-label">Agendamentos:</label>
+          <select id="agendamentos" name="agendamentos" required class="form-select">
+            <option value="">Selecione</option>
+            <option value="MR">Maria:13h 30/09 Segunda-feira </option>
+            <option value="LC">Lucia:13h 30/09 Segunda-feira </option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="mensagens" class="form-label">Mensagens de contato:</label>
+          <select id="mensagens" name="mensagens" required class="form-select">
+            <option value="">Selecione</option>
+            <option value="CG">Olá, qual horário o meu agendamento?</option>
+            <option value="CA">Como mudo meu horário?</option>
+          </select>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+  </div>
+  </form>
+  </main>
+  </div>
+
+  <footer>
+    <address>Av. Principal, 123, Bairro Centro, Uberlândia - MG</address>
+    <p>Contato: (34) 1234-5678 | Email: contato@eeclinicas.com.br</p>
+  </footer>
+</body>
+
+</html>
