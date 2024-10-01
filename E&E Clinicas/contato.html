@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>E&E Clínicas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
         content="E&E Clínicas, fundada pelos médicos Eduardo Oliveira e Matheus Eduardo, oferece atendimento especializado e humanizado em Uberlândia.">
     <link rel="stylesheet" href="css/style.css">
@@ -14,8 +15,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="index.html"> <img src="images/logonome.png" alt="Logo da E&E Clínicas" class="logo"
-                    width="100" height="100%">
+            <a class="navbar-brand" href="index.html"> <img src="images/logonome.png" alt="Logo da E&E Clínicas"
+                    class="logo" width="100" height="100%">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -48,7 +49,7 @@
 
     <main>
 
-        <div>
+        <div class="container">
             <h2>Entre em Contato</h2>
             <p>Estamos à disposição para atender suas dúvidas, agendar consultas e oferecer mais informações sobre
                 nossos serviços. Na E&E Clínicas, priorizamos a sua saúde e bem-estar em cada contato.</p>
@@ -56,6 +57,7 @@
             <p><strong>Email:</strong> contato@eeclinicas.com.br</p>
             <p><strong>Endereço:</strong> Rua Jamanta, 123 - Centro, Uberlândia - MG</p>
             <p>Ou preencha o formulário abaixo e entraremos em contato o mais breve possível:</p>
+
             <form action="/enviar" method="POST">
                 <div class="row">
                     <div class="col-sm-12">
@@ -70,18 +72,19 @@
                     </div>
                     <div class="col-sm-5">
                         <label for="telefone" class="form-label">Telefone:</label>
-                        <input type="number" id="telefone" class="form-control" name="telefone" placeholder="Apenas numeros">
+                        <input type="number" id="telefone" class="form-control" name="telefone"
+                            placeholder="Apenas numeros">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col">
                         <label for="mensagem" class="form-label">Mensagem:</label>
                         <textarea id="mensagem" class="form-control" name="mensagem" rows="5"
                             placeholder="Descreva sua mensagem"></textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col">
                         <button type="button" id="butao" class="btn btn-primary">Enviar</button>
                     </div>
                 </div>

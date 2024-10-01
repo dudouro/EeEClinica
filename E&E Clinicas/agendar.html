@@ -16,8 +16,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="index.html"> <img src="images/logonome.png" alt="Logo da E&E Clínicas" class="logo"
-                    width="100" height="100%">
+            <a class="navbar-brand" href="index.html"> <img src="images/logonome.png" alt="Logo da E&E Clínicas"
+                    class="logo" width="100" height="100%">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -50,7 +50,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <main>
-        <div>
+        <div class="container">
 
             <h2>Agende uma Consulta</h2>
             <p>Preencha o formulário abaixo para agendar sua consulta. Na E&E Clínicas, priorizamos a sua saúde e
@@ -72,28 +72,27 @@
                             <option value="O">Outro</option>
                         </select>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <label for="cpfPaciente" class="form-label">CPF:</label>
-                            <input type="text" id="cpfPaciente" class="form-control" name="cpfPaciente"
-                                placeholder="Digite seu CPF">
-                        </div>
-                        <div class="col-sm-4">
-                            <label for="data" class="form-label">Data e Hora:</label>
-                            <input type="datetime-local" id="data" class="form-control" name="data">
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label for="cpfPaciente" class="form-label">CPF:</label>
+                        <input type="text" id="cpfPaciente" class="form-control" name="cpfPaciente"
+                            placeholder="Digite seu CPF">
                     </div>
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" id="email" class="form-control" name="email"
-                                placeholder="Digite seu email">
-                        </div>
-                        <div class="col-sm-5">
-                            <label for="telefone" class="form-label">Telefone:</label>
-                            <input type="number" id="telefone" class="form-control" name="telefone"
-                                placeholder="Apenas numeros">
-                        </div>
+                    <div class="col-sm-4">
+                        <label for="data" class="form-label">Data e Hora:</label>
+                        <input type="datetime-local" id="data" class="form-control" name="data">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" id="email" class="form-control" name="email" placeholder="Digite seu email">
+                    </div>
+                    <div class="col-sm-5">
+                        <label for="telefone" class="form-label">Telefone:</label>
+                        <input type="number" id="telefone" class="form-control" name="telefone"
+                            placeholder="Apenas numeros">
                     </div>
                 </div>
                 <div class="row">
@@ -125,9 +124,9 @@
             </form>
         </div>
 
-        <!--Reaproveitamos o site para a matéria de NoSQL-->>
+        <!--Reaproveitamos o site para a matéria de NoSQL-->
         <script src="java/agendarNOSQL.js"></script>
-        
+
     </main>
 
 

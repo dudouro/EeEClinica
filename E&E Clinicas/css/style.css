@@ -85,6 +85,7 @@ address, footer p {
 footer a {
     color: #95A5A6;
     text-decoration: none;
+    position: fixed;
 }
 
 footer a:hover {
