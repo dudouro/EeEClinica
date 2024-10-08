@@ -14,7 +14,7 @@ database = client.Clinica_Server  # Nome da database
 
 # Coleções
 paciente_collection = database.get_collection("pacientes")
-agendamento_collection = database.get_collection("agendamentos")
+agendamentos_collection = database.get_collection("agendamentos")
 medico_collection = database.get_collection("medicos")
 
 # Modelo Paciente
