@@ -1,0 +1,113 @@
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import List
+from motor.motor_asyncio import AsyncIOMotorClient
+from bson import ObjectId
+from datetime import datetime
+import redis
+
+app = FastAPI()
+
+# Conectar ao MongoDB
+MONGO_DETAILS = "mongodb+srv://matheuseddc:2kHij4tU4vdDmd@cluster0.9t5qs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+client = AsyncIOMotorClient(MONGO_DETAILS)
+database = client.Clinica_Server  # Nome da database
+
+# Conectar ao Redis
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+# Coleções do MongoDB
+paciente_collection = database.get_collection("pacientes")
+agendamentos_collection = database.get_collection("agendamentos")
+medico_collection = database.get_collection("medicos")
+
+# Modelos
+class Paciente(BaseModel):
+    cpf: str
+    nome: str
+    dataNasc: str
+    email: str
+    telefone: str
+
+class Agendamento(BaseModel):
+    cpfPaciente: str
+    nome: str
+    sexo: str
+    data: datetime
+    email: str
+    telefone: str
+    crmMedico: str
+    especialidade: str
+
+class Medico(BaseModel):
+    crm: str
+    nome: str
+    dataNasc: str
+    email: str
+    cpf: str
+    telefone: str
+    especialidade: str
+
+# Funções auxiliares
+def paciente_helper(paciente) -> dict:
+    return {
+        "id": str(paciente["_id"]),
+        "cpf": paciente["cpf"],
+        "nome": paciente["nome"],
+        "dataNasc": paciente["dataNasc"],
+        "email": paciente["email"],
+        "telefone": paciente["telefone"]
+    }
+
+def agendamento_helper(agendamento) -> dict:
+    return {
+        "id": str(agendamento["_id"]),
+        "cpfPaciente": agendamento["cpfPaciente"],
+        "nome": agendamento["nome"],
+        "sexo": agendamento["sexo"],
+        "data": agendamento["data"],
+        "email": agendamento["email"],
+        "telefone": agendamento["telefone"],
+        "crmMedico": agendamento["crmMedico"],
+        "especialidade": agendamento["especialidade"]
+    }
+
+def medico_helper(medico) -> dict:
+    return {
+        "id": str(medico["_id"]),
+        "crm": medico["crm"],
+        "nome": medico["nome"],
+        "dataNasc": medico["dataNasc"],
+        "email": medico["email"],
+        "cpf": medico["cpf"],
+        "telefone": medico["telefone"],
+        "especialidade": medico["especialidade"]
+    }
+
+# CRUD Redis para String
+@app.post("/redis/set_string/{key}/{value}")
+async def set_string_redis(key: str, value: str):
+    redis_client.set(key, value)
+    return {"message": f"String armazenada com chave: {key} e valor: {value}"}
+
+@app.get("/redis/get_string/{key}")
+async def get_string_redis(key: str):
+    value = redis_client.get(key)
+    if value:
+        return {"key": key, "value": value.decode("utf-8")}
+    raise HTTPException(status_code=404, detail="Chave não encontrada")
+
+# CRUD Redis para SET
+@app.post("/redis/set_set/{key}")
+async def add_to_set_redis(key: str, value: str):
+    redis_client.sadd(key, value)
+    return {"message": f"Valor {value} adicionado ao conjunto com chave: {key}"}
+
+@app.get("/redis/get_set/{key}")
+async def get_set_redis(key: str):
+    values = redis_client.smembers(key)
+    if values:
+        return {"key": key, "values": [value.decode("utf-8") for value in values]}
+    raise HTTPException(status_code=404, detail="Conjunto não encontrado")
+
+# Outros endpoints...
