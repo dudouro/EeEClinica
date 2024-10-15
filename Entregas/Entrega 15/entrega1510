@@ -13,15 +13,17 @@ MONGO_DETAILS = "mongodb+srv://matheuseddc:2kHij4tU4vdDmd@cluster0.9t5qs.mongodb
 client = AsyncIOMotorClient(MONGO_DETAILS)
 database = client.Clinica_Server  # Nome da database
 
-# Conectar ao Redis
-redis_client = redis.Redis(host='localhost', port=6379, db=0)
-
-# Coleções do MongoDB
+# Coleções
 paciente_collection = database.get_collection("pacientes")
 agendamentos_collection = database.get_collection("agendamentos")
 medico_collection = database.get_collection("medicos")
 
-# Modelos
+# Conectar ao Redis
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
+
+# Modelo Paciente
 class Paciente(BaseModel):
     cpf: str
     nome: str
@@ -29,6 +31,7 @@ class Paciente(BaseModel):
     email: str
     telefone: str
 
+# Modelo Agendamento
 class Agendamento(BaseModel):
     cpfPaciente: str
     nome: str
@@ -39,6 +42,7 @@ class Agendamento(BaseModel):
     crmMedico: str
     especialidade: str
 
+# Modelo Médico
 class Medico(BaseModel):
     crm: str
     nome: str
@@ -48,7 +52,8 @@ class Medico(BaseModel):
     telefone: str
     especialidade: str
 
-# Funções auxiliares
+
+# Auxiliar para converter documentos
 def paciente_helper(paciente) -> dict:
     return {
         "id": str(paciente["_id"]),
@@ -63,14 +68,15 @@ def agendamento_helper(agendamento) -> dict:
     return {
         "id": str(agendamento["_id"]),
         "cpfPaciente": agendamento["cpfPaciente"],
-        "nome": agendamento["nome"],
-        "sexo": agendamento["sexo"],
+        "nome": agendamento["nome"],  # Adicionado
+        "sexo": agendamento["sexo"],  # Adicionado
         "data": agendamento["data"],
-        "email": agendamento["email"],
-        "telefone": agendamento["telefone"],
+        "email": agendamento["email"],  # Adicionado
+        "telefone": agendamento["telefone"],  # Adicionado
         "crmMedico": agendamento["crmMedico"],
         "especialidade": agendamento["especialidade"]
     }
+
 
 def medico_helper(medico) -> dict:
     return {
@@ -84,30 +90,233 @@ def medico_helper(medico) -> dict:
         "especialidade": medico["especialidade"]
     }
 
-# CRUD Redis para String
-@app.post("/redis/set_string/{key}/{value}")
-async def set_string_redis(key: str, value: str):
-    redis_client.set(key, value)
-    return {"message": f"String armazenada com chave: {key} e valor: {value}"}
 
-@app.get("/redis/get_string/{key}")
-async def get_string_redis(key: str):
-    value = redis_client.get(key)
-    if value:
-        return {"key": key, "value": value.decode("utf-8")}
-    raise HTTPException(status_code=404, detail="Chave não encontrada")
+# Função para incrementar o número de consultas do médico no Redis
+def incrementar_consultas(crm: str):
+    redis_client.hincrby(f"medico:{crm}", "consultas", 1)
 
-# CRUD Redis para SET
-@app.post("/redis/set_set/{key}")
-async def add_to_set_redis(key: str, value: str):
-    redis_client.sadd(key, value)
-    return {"message": f"Valor {value} adicionado ao conjunto com chave: {key}"}
+# Função para atualizar a avaliação do médico no Redis
+def atualizar_avaliacao(crm: str, avaliacao: float):
+    redis_client.hset(f"medico:{crm}", "avaliacao", avaliacao)
 
-@app.get("/redis/get_set/{key}")
-async def get_set_redis(key: str):
-    values = redis_client.smembers(key)
-    if values:
-        return {"key": key, "values": [value.decode("utf-8") for value in values]}
-    raise HTTPException(status_code=404, detail="Conjunto não encontrado")
+# Criar um agendamento e incrementar o número de consultas no Redis
+@app.post("/agendar")
+async def create_agendamento(agendamento: Agendamento):
+    existing_agendamento = await agendamentos_collection.find_one({"cpfPaciente": agendamento.cpfPaciente})
+    if existing_agendamento:
+        raise HTTPException(status_code=400, detail="Agendamento já existe para este CPF")
+    
+    agendamento_dict = agendamento.dict()
+    result = await agendamentos_collection.insert_one(agendamento_dict)
+    new_agendamento = await agendamentos_collection.find_one({"_id": result.inserted_id})
+    
+    # Incrementar número de consultas do médico
+    incrementar_consultas(agendamento.crmMedico)
+    
+    return agendamento_helper(new_agendamento)
 
-# Outros endpoints...
+# Create - Criar um paciente
+@app.post("/pacientes")
+async def create_paciente(paciente: Paciente):
+    paciente = paciente.dict()
+    result = await paciente_collection.insert_one(paciente)
+    new_paciente = await paciente_collection.find_one({"_id": result.inserted_id})
+    return paciente_helper(new_paciente)
+
+# Read - Ler todos os pacientes
+@app.get("/pacientes", response_model=List[Paciente])
+async def get_pacientes():
+    pacientes = []
+    async for paciente in paciente_collection.find():
+        pacientes.append(paciente_helper(paciente))
+    return pacientes
+
+# Read - Ler paciente específico por CPF
+@app.get("/pacientes/{cpf}", response_model=Paciente)
+async def read_paciente(cpf: str):
+    paciente = await paciente_collection.find_one({"cpf": cpf})
+    if not paciente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado")
+    return paciente_helper(paciente)
+
+# Update - Atualizar um paciente
+@app.put("/pacientes/{cpf}", response_model=Paciente)
+async def update_paciente(cpf: str, paciente: Paciente):
+    existing_paciente = await paciente_collection.find_one({"cpf": cpf})
+    if not existing_paciente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado")
+    await paciente_collection.update_one({"cpf": cpf}, {"$set": paciente.dict()})
+    updated_paciente = await paciente_collection.find_one({"cpf": cpf})
+    return paciente_helper(updated_paciente)
+
+# Delete - Deletar um paciente
+@app.delete("/pacientes/{cpf}")
+async def delete_paciente(cpf: str):
+    paciente = await paciente_collection.find_one({"cpf": cpf})
+    if not paciente:
+        raise HTTPException(status_code=404, detail="Paciente não encontrado")
+    await paciente_collection.delete_one({"cpf": cpf})
+    return {"success": True, "message": "Paciente deletado com sucesso"}
+
+
+# Criar um agendamento e incrementar o número de consultas no Redis
+@app.post("/agendar")
+async def create_agendamento(agendamento: Agendamento):
+    existing_agendamento = await agendamentos_collection.find_one({"cpfPaciente": agendamento.cpfPaciente})
+    if existing_agendamento:
+        raise HTTPException(status_code=400, detail="Agendamento já existe para este CPF")
+    
+    agendamento_dict = agendamento.dict()
+    result = await agendamentos_collection.insert_one(agendamento_dict)
+    new_agendamento = await agendamentos_collection.find_one({"_id": result.inserted_id})
+    
+    # Incrementar número de consultas do médico
+    incrementar_consultas(agendamento.crmMedico)
+    
+    return agendamento_helper(new_agendamento)
+
+# Read - Ler todos os agendamentos
+@app.get("/agendamentos/", response_model=List[Agendamento])
+async def get_agendamentos():
+    agendamentos = []
+    async for agendamento in agendamentos_collection.find():
+        agendamentos.append(agendamento_helper(agendamento))
+    return agendamentos
+
+# Read - Ler agendamento específico por CPF
+@app.get("/agendamentos/{cpfPaciente}", response_model=Agendamento)
+async def read_agendamento(cpfPaciente: str):
+    agendamento = await agendamentos_collection.find_one({"cpfPaciente": cpfPaciente})
+    if not agendamento:
+        raise HTTPException(status_code=404, detail="Agendamento não encontrado")
+    
+    return agendamento_helper(agendamento)
+
+# Update - Atualizar um agendamento existente
+@app.put("/agendamentos/{cpfPaciente}", response_model=Agendamento)
+async def update_agendamento(cpfPaciente: str, agendamento: Agendamento):
+    existing_agendamento = await agendamentos_collection.find_one({"cpfPaciente": cpfPaciente})
+    if not existing_agendamento:
+        raise HTTPException(status_code=404, detail="Agendamento não encontrado")
+    
+    # Atualiza o agendamento com os novos dados
+    await agendamentos_collection.update_one({"cpfPaciente": cpfPaciente}, {"$set": agendamento.dict()})
+    updated_agendamento = await agendamentos_collection.find_one({"cpfPaciente": cpfPaciente})
+    return agendamento_helper(updated_agendamento)
+
+# Delete - Deletar um agendamento
+@app.delete("/agendamentos/{cpfPaciente}")
+async def delete_agendamento(cpfPaciente: str):
+    agendamento = await agendamentos_collection.find_one({"cpfPaciente": cpfPaciente})
+    if not agendamento:
+        raise HTTPException(status_code=404, detail="Agendamento não encontrado")
+    
+    await agendamentos_collection.delete_one({"cpfPaciente": cpfPaciente})
+    return {"success": True, "message": "Agendamento deletado com sucesso"}
+
+# Create - Criar um médico
+@app.post("/medicos")
+async def create_medico(medico: Medico):
+    medico = medico.dict()
+    result = await medico_collection.insert_one(medico)
+    new_medico = await medico_collection.find_one({"_id": result.inserted_id})
+    return medico_helper(new_medico)
+
+# Read - Ler todos os médicos
+@app.get("/medicos", response_model=List[Medico])
+async def get_medicos():
+    medicos = []
+    async for medico in medico_collection.find():
+        medicos.append(medico_helper(medico))
+    return medicos
+
+# Read - Ler médico específico por CRM
+@app.get("/medicos/{crm}", response_model=Medico)
+async def read_medico(crm: str):
+    medico = await medico_collection.find_one({"crm": crm})
+    if not medico:
+        raise HTTPException(status_code=404, detail="Médico não encontrado")
+    return medico_helper(medico)
+
+# Update - Atualizar um médico
+@app.put("/medicos/{crm}", response_model=Medico)
+async def update_medico(crm: str, medico: Medico):
+    existing_medico = await medico_collection.find_one({"crm": crm})
+    if not existing_medico:
+        raise HTTPException(status_code=404, detail="Médico não encontrado")
+    await medico_collection.update_one({"crm": crm}, {"$set": medico.dict()})
+    updated_medico = await medico_collection.find_one({"crm": crm})
+    return medico_helper(updated_medico)
+
+# Delete - Deletar um médico
+@app.delete("/medicos/{crm}")
+async def delete_medico(crm: str):
+    medico = await medico_collection.find_one({"crm": crm})
+    if not medico:
+        raise HTTPException(status_code=404, detail="Médico não encontrado")
+    await medico_collection.delete_one({"crm": crm})
+    return {"success": True, "message": "Médico deletado com sucesso"}
+
+# Ler o número de consultas e avaliação de um médico do Redis
+@app.get("/medicos/{crm}/status")
+async def get_medico_status(crm: str):
+    consultas = redis_client.hget(f"medico:{crm}", "consultas")
+    avaliacao = redis_client.hget(f"medico:{crm}", "avaliacao")
+    
+    if consultas is None:
+        raise HTTPException(status_code=404, detail="Dados do médico não encontrados")
+    
+    return {
+        "crm": crm,
+        "consultas": consultas,
+        "avaliacao": avaliacao
+    }
+
+# AGREGATION PIPELINE
+
+async def listar_consultas_por_medico(crmMedico: str):
+    pipeline = [
+        {
+            "$match": {
+                "crmMedico": crmMedico
+            }
+        },
+        {
+            "$lookup": {
+                "from": "pacientes",  # Coleção de pacientes
+                "localField": "cpfPaciente",  # CPF do paciente na coleção de agendamentos
+                "foreignField": "cpf",  # CPF do paciente na coleção de pacientes
+                "as": "paciente_info"
+            }
+        },
+        {
+            "$unwind": "$paciente_info"  # Descompactar a lista de informações do paciente
+        },
+        {
+            "$project": {
+                "_id": 0,  # Não mostrar o _id no resultado
+                "nomePaciente": "$paciente_info.nome",  # Nome do paciente da coleção pacientes
+                "data": 1  # Data da consulta
+            }
+        },
+        {
+            "$sort": {
+                "data": 1  # Ordenar pela data (1 para ordem crescente)
+            }
+        }
+    ]
+
+    consultas = await agendamentos_collection.aggregate(pipeline).to_list(length=None)
+    return consultas
+
+
+# Atualizar avaliação do médico
+@app.put("/medicos/{crm}/avaliacao")
+async def update_medico_avaliacao(crm: str, avaliacao: float):
+    medico = await medico_collection.find_one({"crm": crm})
+    if not medico:
+        raise HTTPException(status_code=404, detail="Médico não encontrado")
+    
+    # Atualizar a avaliação no Redis
+    atualizar_avaliacao(crm, avaliacao)
+    return {"success": True, "message": "Avaliação atualizada com sucesso"}
