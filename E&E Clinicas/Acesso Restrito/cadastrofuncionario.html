@@ -11,36 +11,22 @@
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C3E50;">
     <div class="container-fluid">
-
-      <a class="navbar-brand" href="../html/index.html"> <img src="../images/logonome.png" alt="Logo da E&E Clínicas" class="logo"
-          width="100" height="100%">
+      <a class="navbar-brand" href="../index.html">
+        <img src="../images/logonome.png" alt="Logo da E&E Clínicas" class="logo" width="100">
       </a>
-
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="../index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../galeria.html">Galeria</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../contato.html">Contato</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../agendar.html">Agendar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../login.html">Login</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../galeria.html">Galeria</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contato.html">Contato</a></li>
+          <li class="nav-item"><a class="nav-link" href="../agendar.html">Agendar</a></li>
+          <li class="nav-item"><a class="nav-link" href="../login.html">Login</a></li>
         </ul>
       </div>
     </div>
@@ -53,12 +39,8 @@
       <p>Preencha todos os dados abaixo</p>
       <h3>Dados pessoais</h3>
 
-      <form action="cadastra.php" method="get">
+      <form action="cadastra-funcionario.php" method="post">
         <div class="row gy-3">
-          <div class="col-12">
-            <label for="codigo">Código:</label>
-            <input type="text" class="form-control" minlength="2" maxlength="10" id="codigo" name="codigo" required>
-          </div>
           <div class="col-12">
             <label for="nome">Nome:</label>
             <input type="text" class="form-control" placeholder="Informe o nome completo" minlength="2" maxlength="50"
@@ -74,42 +56,28 @@
           </div>
           <div class="col-12">
             <label for="datanascimento">Data de Nacimento:</label>
-            <input type="date" class="form-control" id="datanascimento" name="DataNacimento">
+            <input type="date" class="form-control" id="datanascimento" name="dataNacimento">
           </div>
-          <div class="col-4"></div>
-          <label for="estado" class="form-label">Escolha o estado Civil:</label>
-          <select id="estado" name="estado" required class="form-select">
-            <option value="">Selecione</option>
-            <option value="SL">Solteiro</option>
-            <option value="CS">Casado</option>
-            <option value="DV">Divorciado</option>
-          </select>
-        </div>
-        <legend>Função</legend>
-        <div class="col-8">
-          <input type="text" class="form-control" minlength="2" maxlength="20" id="funcao" name="codigo" required>
-        </div>
-        <div class="col-12 mt-3">
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
+          <div class="col-12">
+            <label for="estado" class="form-label">Escolha o estado Civil:</label>
+            <select id="estado" name="estadoCivil" required class="form-select">
+              <option value="">Selecione</option>
+              <option value="SL">Solteiro</option>
+              <option value="CS">Casado</option>
+              <option value="DV">Divorciado</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label for="nome">Função:</label>
+            <input type="text" class="form-control" minlength="2" maxlength="20" id="funcao" name="funcao" required>
+          </div>
+          <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </div>
         </div>
       </form>
     </main>
   </div>
-
-  <footer>
-    <style>
-      footer {
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-        position: fixed;
-        bottom: 0;
-        ;
-      }
-    </style>
-    <address>Av. Principal, 123, Bairro Centro, Uberlândia - MG</address>
-    <p>Contato: (34) 1234-5678 | Email: contato@eeclinicas.com.br</p>
-  </footer>
 </body>
 
 </html>
