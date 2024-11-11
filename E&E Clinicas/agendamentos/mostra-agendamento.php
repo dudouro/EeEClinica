@@ -85,7 +85,7 @@ catch (Exception $e) {
       ?>
 
     </table>
-    <a href="../index.html">Menu de opções</a>
+    <a href="../restrito/index.html">Menu de opções</a>
   </div>
 
 </body>
