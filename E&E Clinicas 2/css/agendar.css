@@ -1,0 +1,113 @@
+/* Cores e Fontes Personalizadas */
+body {
+    font-family: 'Helvetica', Arial, sans-serif;
+    color: #2C3E50; /* Cor principal do texto */
+    background-color: #BDC3C7; /* Cor de fundo suave */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Estilo do Cabeçalho */
+header {
+    text-align: center;
+    background-color: #2C3E50; /* Cor de fundo do cabeçalho */
+    padding: 1.5rem 0;
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+}
+
+/* Título no Cabeçalho */
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* Barra de Navegação */
+nav {
+    background-color: #2C3E50; /* Cor de fundo da barra de navegação */
+    padding: 1rem;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Links de Navegação */
+nav li {
+    margin: 0 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFFFFF; /* Cor do texto do link */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #BDC3C7; /* Cor ao passar o mouse */
+}
+
+/* Estilo Principal */
+main {
+    background-color: #FFFFFF; /* Cor de fundo da área principal */
+    width: 70%;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px;
+}
+
+/* Títulos e Textos */
+h2 {
+    color: #2C3E50; /* Cor dos títulos */
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+p {
+    text-align: justify;
+    color: #2C3E50; /* Cor do texto do parágrafo */
+    font-size: 1.1rem;
+}
+
+/* Listas */
+ul {
+    color: #2C3E50; /* Cor das listas */
+}
+
+/* Estilo do Rodapé */
+footer {
+    background-color: #2C3E50; /* Cor de fundo do rodapé */
+    color: #FFFFFF; /* Cor do texto no rodapé */
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+address, footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Links no Rodapé */
+footer a {
+    color: #95A5A6; /* Cor dos links no rodapé */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo de Imagens no Main */
+main img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
